@@ -13,6 +13,7 @@ public class Polyglot {
     }
 
     // Metoda pentru calculul sumei de control folosind Python - formula polinomiala rang 5
+    // Problema 2: se elimina primul si ultimul caracter folosind substring inainte de calcul
     private static int SumCRC(String token) {
         Context polyglot = Context.newBuilder().allowAllAccess(true).build();
 
@@ -21,6 +22,11 @@ public class Polyglot {
         // unde x = valoarea ASCII a fiecarui caracter
         polyglot.eval("python",
                 "def poly_crc(token):\n" +
+                        "    # Problema 2: eliminam primul si ultimul caracter folosind substring\n" +
+                        "    if len(token) > 2:\n" +
+                        "        token = token[1:-1]\n" +
+                        "    elif len(token) <= 2:\n" +
+                        "        return 0\n" +
                         "    c = [1, 3, 5, 7, 11, 13]\n" +
                         "    result = 0\n" +
                         "    for ch in token:\n" +
@@ -44,7 +50,7 @@ public class Polyglot {
                 "[\"If\", \"we\", \"run\", \"the\", \"java\", \"command\", \"we\", \"just\"]"
         );
 
-        // Pentru fiecare cuvant, convertim la upCase folosind R si calculam suma de control folosind Python
+        // Pentru fiecare cuvant, convertim la upCase folosind JS si calculam suma de control folosind Python
         for (int i = 0; i < array.getArraySize(); i++) {
             String element = array.getArrayElement(i).asString();
             String upper = RToUpper(element);
